@@ -10,25 +10,41 @@ public class TcpScriptClient : MonoBehaviour {
 	#region private members 	
 	private TcpClient socketConnection; 	
 	private Thread clientReceiveThread; 	
+	private KeyboardController keyController;
 	#endregion  	
 	// Use this for initialization 	
+	private void Awake() {
+		keyController = new KeyboardController();	
+	}
+	private void OnEnable() {
+		keyController.Enable();	
+	}
+	private void OnDisable() {
+		keyController.Disable();	
+	}
 	void Start () {
 		ConnectToTcpServer();     
 	}  	
 	// Update is called once per frame
 	void Update () {         
-		if (Input.GetKeyDown(KeyCode.W)) {             
+		float foward_backward = keyController.Keyboard.Move.ReadValue<float>();
+		if (foward_backward == 1) {             
 			SendClientMessage("w");         
-		}     
-		if (Input.GetKeyDown(KeyCode.A)) {             
-			SendClientMessage("a");         
-		}     
-		if (Input.GetKeyDown(KeyCode.S)) {             
+		} else if(foward_backward == -1) {
 			SendClientMessage("s");         
-		}     
-		if (Input.GetKeyDown(KeyCode.D)) {             
-			SendClientMessage("d");         
-		}     
+		}    
+		// if (Input.GetKeyDown(KeyCode.W)) {             
+		// 	SendClientMessage("w");         
+		// }     
+		// if (Input.GetKeyDown(KeyCode.A)) {             
+		// 	SendClientMessage("a");         
+		// }     
+		// if (Input.GetKeyDown(KeyCode.S)) {             
+		// 	SendClientMessage("s");         
+		// }     
+		// if (Input.GetKeyDown(KeyCode.D)) {             
+		// 	SendClientMessage("d");         
+		// }     
 	}  	
 	/// <summary> 	
 	/// Setup socket connection. 	
