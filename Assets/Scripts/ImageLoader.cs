@@ -22,10 +22,9 @@ public class ImageLoader : MonoBehaviour
     {
         string url = "http://192.168.1.35:5000/image.jpg";
  
-
         GetTexture(url, (string error) => {
             //Error
-            Debug.Log("Error: " + error);
+            // Debug.Log("Error: " + error);
         }, (Texture2D texture2D) => {
             //Sucess
             Sprite sprite = Sprite.Create(texture2D, new Rect(0,0,texture2D.width,texture2D.height), new Vector2(.5f,.5f));

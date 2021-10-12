@@ -27,12 +27,23 @@ public class TcpScriptClient : MonoBehaviour {
 	}  	
 	// Update is called once per frame
 	void Update () {         
+
+		// Lastest Input API Logic
 		float foward_backward = keyController.Keyboard.Move.ReadValue<float>();
-		if (foward_backward == 1) {             
+		float right_left = keyController.Keyboard.Turn.ReadValue<float>();
+
+		if(foward_backward == 1) {             
 			SendClientMessage("w");         
 		} else if(foward_backward == -1) {
 			SendClientMessage("s");         
 		}    
+
+		if(right_left == 1) {             
+			SendClientMessage("d");         
+		} else if(right_left == -1) {
+			SendClientMessage("a");         
+		}    
+
 		// if (Input.GetKeyDown(KeyCode.W)) {             
 		// 	SendClientMessage("w");         
 		// }     
@@ -101,7 +112,7 @@ public class TcpScriptClient : MonoBehaviour {
 				byte[] clientMessageAsByteArray = Encoding.ASCII.GetBytes(clientMessage); 				
 				// Write byte array to socketConnection stream.                 
 				stream.Write(clientMessageAsByteArray, 0, clientMessageAsByteArray.Length);                 
-				Debug.Log("Client sent his message - should be received by server");             
+				// Debug.Log("Client sent his message - should be received by server");             
 			}         
 		} 		
 		catch (SocketException socketException) {             
