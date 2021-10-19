@@ -17,7 +17,7 @@ public class MainMenuScript : MonoBehaviour
 	public static TcpClient socketConnection; 	
     //
 	public static Thread clientReceiveThread; 	
-	// public static NetWorkStream stream; 	
+	public static NetworkStream stream; 	
 
     void Start()
     {
@@ -53,8 +53,8 @@ public class MainMenuScript : MonoBehaviour
 			Byte[] bytes = new Byte[16];             
 			while (true) { 				
 				// Get a stream object for reading 				
-				using (NetworkStream stream = socketConnection.GetStream()) { 					
 					int length; 					
+					stream = socketConnection.GetStream();
 					// Read incomming stream into byte arrary. 					
 					while ((length = stream.Read(bytes, 0, bytes.Length)) != 0) { 						
 						var incommingData = new byte[length]; 						
@@ -63,7 +63,6 @@ public class MainMenuScript : MonoBehaviour
 						string serverMessage = Encoding.ASCII.GetString(incommingData); 						
 						Debug.Log("server message received as: " + serverMessage); 					
 					} 				
-				} 			
 			}         
 		}         
 		catch (SocketException socketException) {             

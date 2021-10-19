@@ -8,6 +8,7 @@ public class SceneLoader : MonoBehaviour
     // Screen Manager
     public void QuitGame() {
         // Close TCP connection
+        MainMenuScript.stream.Close();
         MainMenuScript.socketConnection.Close();
         // Quits Game
         Application.Quit();
