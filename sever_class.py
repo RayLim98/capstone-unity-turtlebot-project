@@ -10,7 +10,7 @@ class TcpConnection:
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.bind(('localhost', 1234))
         self.s.listen(5)
-
+        
         self.currentInput = ''
 
     def GetInput(self):
@@ -35,8 +35,7 @@ class TcpConnection:
         clientmsg = clientmsg.decode("utf-8")
         # saves current input
         self.currentInput = clientmsg
-
-        print(f'Message received: {self.GetInput()}')
+        print(f'Message received: {self.GetInput()} and {type(self.GetInput())}')
         # returns message received as a string
         return clientmsg
 

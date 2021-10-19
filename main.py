@@ -35,7 +35,12 @@ class MainNode:
     while not rospy.is_shutdown():
         try:
           # waits and listens for input from the client  
-          input = self.server.Listen()
+          self.server.Listen()
+          # assigns input value
+          input = self.server.GetInput()
+          # checks if client is disconnected
+          if input == '':
+            break
           # after it gets an input - input is fed to the controller to send the command 
           self.controller.get_input(input)
         except KeyboardInterrupt:
