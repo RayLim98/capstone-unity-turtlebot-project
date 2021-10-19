@@ -7,9 +7,10 @@ using System.Threading;
 using UnityEngine;
 
 public class TcpScriptClient : MonoBehaviour {  	
+	public TcpClient socketConnection;
+	public Thread clientReceiveThread; 	
 	#region private members 	
-	private TcpClient socketConnection; 	
-	private Thread clientReceiveThread; 	
+	// static private TcpClient socketConnection; 	
 	private KeyboardController keyController;
 	#endregion  	
 	// Use this for initialization 	
@@ -23,7 +24,9 @@ public class TcpScriptClient : MonoBehaviour {
 		keyController.Disable();	
 	}
 	void Start () {
-		ConnectToTcpServer();     
+		socketConnection = MainMenuScript.socketConnection;
+		clientReceiveThread = MainMenuScript.clientReceiveThread;
+		// ConnectToTcpServer();     
 	}  	
 	// Update is called once per frame
 	void Update () {         
@@ -34,6 +37,7 @@ public class TcpScriptClient : MonoBehaviour {
 
 		if(foward_backward == 1) {             
 			SendClientMessage("w");         
+
 		} else if(foward_backward == -1) {
 			SendClientMessage("s");         
 		}    
@@ -60,7 +64,7 @@ public class TcpScriptClient : MonoBehaviour {
 	/// <summary> 	
 	/// Setup socket connection. 	
 	/// </summary> 	
-	private void ConnectToTcpServer () { 		
+	public void ConnectToTcpServer () { 		
 		try {  			
 			clientReceiveThread = new Thread (new ThreadStart(ListenForData)); 			
 			clientReceiveThread.IsBackground = true; 			
