@@ -5,28 +5,28 @@ using UnityEngine.Networking;
 using UnityEngine;
 public class ImageLoader : MonoBehaviour
 {
-    // Start is called before the first frame updateo
+    // Ip end point to be loaded
+    public string ip;
     [SerializeField] private SpriteRenderer spriteRenderer;
     void Start()
     {
-        RunTexture();
+        // If input field is empty runs default script 
+        ip = MainMenuScript.IP != null ?  MainMenuScript.IP : MainMenuScript.DefaultIP;
+        // Calls the fuction multiple times. Call rate is based the on targeted refresh rate
         InvokeRepeating("RunTexture",0.0167f,0.1f);
     }
-    // Update is called once per frame
     void Update()
     {
      
     }
 
+    // Handles getting texture 
     private void RunTexture()
     {
-        string url = "http://192.168.1.35:5000/image.jpg";
- 
-        GetTexture(url, (string error) => {
-            //Error
-            // Debug.Log("Error: " + error);
+        GetTexture(ip, (string error) => {
+            //On Error
         }, (Texture2D texture2D) => {
-            //Sucess
+            //On Sucess
             Sprite sprite = Sprite.Create(texture2D, new Rect(0,0,texture2D.width,texture2D.height), new Vector2(.5f,.5f));
             spriteRenderer.sprite = sprite;
         });
