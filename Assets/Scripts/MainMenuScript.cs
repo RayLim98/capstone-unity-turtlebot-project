@@ -26,6 +26,7 @@ public class MainMenuScript : MonoBehaviour
         DefaultIP = "http://192.168.1.35:5000/image.jpg";
     }
     public void StartGame() {
+		// On start game connect to server
         ConnectToTcpServer();
         SceneManager.LoadScene(1);
     }
@@ -49,6 +50,7 @@ public class MainMenuScript : MonoBehaviour
 	/// </summary>     
 	private void ListenForData() { 		
 		try { 			
+			// Ip address the TCP server is running on
 			socketConnection = new TcpClient("127.0.0.1", 1234);  			
 			Byte[] bytes = new Byte[16];             
 			while (true) { 				
